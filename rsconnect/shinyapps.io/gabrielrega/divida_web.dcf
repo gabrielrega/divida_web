@@ -1,0 +1,12 @@
+name: divida_web
+title: divida_web
+username:
+account: gabrielrega
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 352216
+bundleId: 1404079
+url: https://gabrielrega.shinyapps.io/divida_web/
+when: 1527812095.46677
+asMultiple: FALSE
+asStatic: FALSE
