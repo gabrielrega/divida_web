@@ -63,7 +63,7 @@ server <- function(input, output) {
      y[1] <- 100
      z[1] <- input$debt
      for (i in 2:20) {
-       z[i] <- z[i-1] + (z[i-1] * input$rate/100) - (z[i-1] * input$surplus/100)
+       z[i] <- z[i-1] + (z[i-1] * input$rate/100) - (y[i-1] * input$surplus/100)
        y[i] <- y[i-1] + (y[i-1] * input$growth/100)
      }
      
