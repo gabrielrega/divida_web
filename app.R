@@ -24,20 +24,15 @@ ui <- fluidPage(
                      max = 200,
                      value = 70),
          sliderInput("rate",
-                     "Taxa de Juros média (%):",
+                     "Taxa de Juros real média paga (%):",
                      min = -5,
                      max = 20,
                      value = 7),
          sliderInput("growth",
-                     "Crescimento do PIB (%):",
+                     "Crescimento real do PIB (%):",
                      min = -10,
                      max = 15,
                      value = 0),
-         sliderInput("inflation",
-                     "Inflação (%):",
-                     min = -5,
-                     max = 25,
-                     value = 4),
          sliderInput("surplus",
                      "Superávit Fiscal (% do PIB):",
                      min = -10,
@@ -47,7 +42,7 @@ ui <- fluidPage(
       
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("distPlot2")
+         plotOutput("distPlot2"),
          textOutput("buiter")
       )
    )
