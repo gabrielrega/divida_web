@@ -48,7 +48,7 @@ ui <- fluidPage(
       # Show a plot of the generated distribution
       mainPanel(
          plotOutput("distPlot2")
-         
+         textOutput("buiter")
       )
    )
 )
@@ -71,8 +71,11 @@ server <- function(input, output) {
 
      # draw the histogram with the specified number of bins
      barplot(d)
-     
-     print(input$debt/100 * (input$rate/100 - input$growth/100) / (1 + input$growth/100))
+     output$buiter <- renderText({
+      paste("Superávit Necessário:",
+            100*(input$debt/100 * (input$rate/100 - input$growth/100) / (1 + input$growth/100)),
+            " %")
+    })
    })
 }
 
