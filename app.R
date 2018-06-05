@@ -57,13 +57,13 @@ server <- function(input, output) {
      y <- vector(mode = "integer", length = 20)
      y[1] <- 100
      z[1] <- input$debt
-     for (i in 2:20) {
+     for (i in 2:23) {
        z[i] <- z[i-1] + (z[i-1] * input$rate/100) - (y[i-1] * input$surplus/100)
        y[i] <- y[i-1] + (y[i-1] * input$growth/100)
      }
      
      d <- 100*z/y
-     names(d) <- seq(18,37)
+     names(d) <- seq(18,40)
 
      # draw the histogram with the specified number of bins
      barplot(d)
