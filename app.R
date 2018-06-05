@@ -63,6 +63,7 @@ server <- function(input, output) {
      }
      
      d <- 100*z/y
+     names(d) <- seq(18,37)
 
      # draw the histogram with the specified number of bins
      barplot(d)
