@@ -5,8 +5,8 @@ account: gabrielrega
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 352216
-bundleId: 1411458
+bundleId: 1433411
 url: https://gabrielrega.shinyapps.io/divida_web/
-when: 1528154650.90544
+when: 1529200348.15998
 asMultiple: FALSE
 asStatic: FALSE
