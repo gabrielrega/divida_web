@@ -18,17 +18,20 @@ ui <- fluidPage(
                   "Taxa de Juros real média paga (%):",
                   min = -5,
                   max = 20,
-                  value = 7),
+                  value = 7,
+                  step = 0.25),
       sliderInput("growth",
                   "Crescimento real do PIB (%):",
                   min = -10,
                   max = 15,
-                  value = 0),
+                  value = 0,
+                  step = 0.25),
       sliderInput("surplus",
                   "Superávit Primário (% do PIB):",
                   min = -10,
                   max = 10,
-                  value = 3)
+                  value = 3,
+                  step = 0.25)
     ),
     
     # Show a plot of the generated distribution
