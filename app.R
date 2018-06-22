@@ -13,7 +13,8 @@ ui <- fluidPage(
                   "Dívida Inicial (% do PIB):",
                   min = 10,
                   max = 200,
-                  value = 70),
+                  value = 70,
+                  step = 5),
       sliderInput("rate",
                   "Taxa de Juros real média paga (%):",
                   min = -5,
@@ -53,18 +54,21 @@ server <- function(input, output) {
     y <- vector(mode = "integer", length = 20)
     y[1] <- 100
     z[1] <- input$debt
-    surplus <- (input$surplus) - (100*(input$debt/100 * input$rate/100))
+    #surplus <- (input$surplus) - (100*(input$debt/100 * input$rate/100))
     
     for (i in 2:23) {
-      z[i] <- z[i-1] + (z[i-1] * input$rate/100) - (y[i-1] * surplus/100)
+      z[i] <- z[i-1] + (z[i-1] * input$rate/100) - (y[i-1] * input$surplus/100)
       y[i] <- y[i-1] + (y[i-1] * input$growth/100)
     }
     
     d <- 100*z/y
-    names(d) <- seq(18,40)
+    names(d) <- seq(2018,2040)
     
     # draw the histogram with the specified number of bins
-    barplot(d)
+    barplot(d, 
+            ylab = "% do PIB",
+            main = "Relação Dívida/PIB",
+            las = 2)
     
   })
   
