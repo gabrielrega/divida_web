@@ -13,7 +13,8 @@ ui <- fluidPage(
                   "Dívida Inicial (% do PIB):",
                   min = 10,
                   max = 200,
-                  value = 70),
+                  value = 70,
+                  step = 5),
       sliderInput("rate",
                   "Taxa de Juros real média paga (%):",
                   min = -5,
@@ -31,12 +32,26 @@ ui <- fluidPage(
                   min = -10,
                   max = 10,
                   value = 3,
-                  step = 0.25)
+                  step = 0.25),
+      
+      tags$div(class="header", checked=NA,
+               tags$p("Conheça meus outros trabalhos!"),
+               tags$a(href="https://gabrielrega.com/", "Visite meu blog!"),
+               tags$p(" "),
+               tags$a(href="https://twitter.com/gabrielrega", "Me siga no Twitter!"),
+               tags$p(" "),
+               tags$p("Feito por Gabriel Rega (2018)")
+      )
+               
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
       plotOutput("distPlot2"),
+      h3("Instruções"),
+      p("Existem muitos mitos em relação à dívida pública. O primeiro deles é que ela deve ser paga! Outros acreditam que existe um nível ideal dela e que devemos ter o objetivo de caminhar na direção deste. Nossa ideia aqui é que a dívida é um recurso útil que o governo deve utilizar quando for necessário. O objetivo do webapp é mostrar como é possível equilibrar o crescimento da dívida, mudando as variáveis econômicas subjacentes."),
+      p("Mudando os valores nos sliders correspondentes às variáveis, o gráfico de crescimento da dívida vai se ajustando."),
+      p("Dívida inicial representa em quanto a dívida começa em 2018. O Brasil tem esse número em torno de 70%, enquanto que a Grécia está em 130% e o Japão 250%. Quanto maior, mais difícil é controlar a dívida, mesmo com as demais taxas iguais."),
       textOutput("buiter"),
       textOutput("conta"),
       textOutput("nomi")
@@ -53,18 +68,21 @@ server <- function(input, output) {
     y <- vector(mode = "integer", length = 20)
     y[1] <- 100
     z[1] <- input$debt
-    surplus <- (input$surplus) - (100*(input$debt/100 * input$rate/100))
+    #surplus <- (input$surplus) - (100*(input$debt/100 * input$rate/100))
     
     for (i in 2:23) {
-      z[i] <- z[i-1] + (z[i-1] * input$rate/100) - (y[i-1] * surplus/100)
+      z[i] <- z[i-1] + (z[i-1] * input$rate/100) - (y[i-1] * input$surplus/100)
       y[i] <- y[i-1] + (y[i-1] * input$growth/100)
     }
     
     d <- 100*z/y
-    names(d) <- seq(18,40)
+    names(d) <- seq(2018,2040)
     
     # draw the histogram with the specified number of bins
-    barplot(d)
+    barplot(d, 
+            ylab = "% do PIB",
+            main = "Relação Dívida/PIB",
+            las = 2)
     
   })
   
