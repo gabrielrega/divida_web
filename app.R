@@ -34,6 +34,8 @@ ui <- fluidPage(
                   value = 3,
                   step = 0.25),
       
+      
+      
       tags$div(class="header", checked=NA,
                tags$p("Conheça meus outros trabalhos!"),
                tags$a(href="https://gabrielrega.com/", "Visite meu blog!"),
@@ -42,6 +44,7 @@ ui <- fluidPage(
                tags$p(" "),
                tags$p("Feito por Gabriel Rega (2018)")
       )
+      
                
     ),
     
@@ -51,10 +54,14 @@ ui <- fluidPage(
       h3("Instruções"),
       p("Existem muitos mitos em relação à dívida pública. O primeiro deles é que ela deve ser paga! Outros acreditam que existe um nível ideal dela e que devemos ter o objetivo de caminhar na direção deste. Nossa ideia aqui é que a dívida é um recurso útil que o governo deve utilizar quando for necessário. O objetivo do webapp é mostrar como é possível equilibrar o crescimento da dívida, mudando as variáveis econômicas subjacentes."),
       p("Mudando os valores nos sliders correspondentes às variáveis, o gráfico de crescimento da dívida vai se ajustando."),
-      p("Dívida inicial representa em quanto a dívida começa em 2018. O Brasil tem esse número em torno de 70%, enquanto que a Grécia está em 130% e o Japão 250%. Quanto maior, mais difícil é controlar a dívida, mesmo com as demais taxas iguais."),
-      textOutput("buiter"),
+      p("Dívida inicial representa em quanto a dívida começa em 2018."),
+      p("Taxa de juros reais média paga representa o percentual que é cobrado em média sobre a dívida existente, descontada a inflação."),
+      p("Crescimento real do PIB é quanto o PIB aumenta de um ano para o outro, sem contar a inflação."),
+      p("Superávit primário é o quanto o governo arrecada a mais do que gasta em um ano. Um valor negativo representa que o governo gasta mais do que arrecada."),
+      
       textOutput("conta"),
-      textOutput("nomi")
+      textOutput("nomi"),
+      textOutput("buiter")
     )
   )
 )
@@ -87,19 +94,19 @@ server <- function(input, output) {
   })
   
   output$buiter <- renderText({
-    paste("Superávit Nominal Necessário:",
+    paste("O superávit nominal necessário para equilibrar a dívida com os parâmetros escolhidos é de",
           round(100*(input$debt/100 * (input$rate/100 - input$growth/100) / (1 + input$growth/100)), digits = 2),
           " % do PIB")
   })
   
   output$conta <- renderText({
-    paste("Conta de Juros:",
+    paste("Com os parâmetros selecionados, o país está pagando anualmente de juros",
           100*(input$debt/100 * input$rate/100),
-          " % do PIB")
+          " % do PIB.")
   })  
   
   output$nomi <- renderText({
-    paste("Superávit Nominal Equivalente:",
+    paste("Somando o superávit primário escolhido à esta conta de juros chegamos no valor de superávit nominal de",
           input$surplus - (100*(input$debt/100 * input$rate/100)),
           " % do PIB")
   })
