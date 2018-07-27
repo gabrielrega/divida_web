@@ -34,9 +34,12 @@ ui <- fluidPage(
                   value = 3,
                   step = 0.25),
       
-      
+      actionButton("br", "Brasil"),
+      actionButton("gr", "Grécia"),
+      actionButton("jp", "Japão"),
       
       tags$div(class="header", checked=NA,
+               tags$p(" "),
                tags$p("Conheça meus outros trabalhos!"),
                tags$a(href="https://gabrielrega.com/", "Visite meu blog!"),
                tags$p(" "),
@@ -45,7 +48,8 @@ ui <- fluidPage(
                tags$p("Feito por Gabriel Rega (2018)")
       )
       
-               
+      
+      
     ),
     
     # Show a plot of the generated distribution
@@ -67,7 +71,7 @@ ui <- fluidPage(
 )
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server <- function(input, output, session) {
   
   output$distPlot2 <- renderPlot({
     # generate bins based on input$bins from ui.R
@@ -107,8 +111,29 @@ server <- function(input, output) {
   
   output$nomi <- renderText({
     paste("Somando o superávit primário escolhido à esta conta de juros chegamos no valor de superávit nominal de",
-          input$surplus - (100*(input$debt/100 * input$rate/100)),
+          round(input$surplus - (100*(input$debt/100 * input$rate/100)),2),
           " % do PIB")
+  })
+  
+  observeEvent(input$br, {
+    updateSliderInput(session, inputId =	"surplus", value = -2)
+    updateSliderInput(session, inputId =	"debt", value = 75)
+    updateSliderInput(session, inputId =	"growth", value = 2)
+    updateSliderInput(session, inputId =	"rate", value = 2.5)
+    })
+  
+  observeEvent(input$gr, {
+    updateSliderInput(session, inputId =	"surplus", value = -2)
+    updateSliderInput(session, inputId =	"debt", value = 150)
+    updateSliderInput(session, inputId =	"growth", value = 0)
+    updateSliderInput(session, inputId =	"rate", value = 3.5)
+  })
+  
+  observeEvent(input$jp, {
+    updateSliderInput(session, inputId =	"surplus", value = -8)
+    updateSliderInput(session, inputId =	"debt", value = 200)
+    updateSliderInput(session, inputId =	"growth", value = 1)
+    updateSliderInput(session, inputId =	"rate", value = -1)
   })
   
 }
