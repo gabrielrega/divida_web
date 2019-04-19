@@ -65,7 +65,9 @@ ui <- fluidPage(
       
       textOutput("conta"),
       textOutput("nomi"),
-      textOutput("buiter")
+      textOutput("buiter"),
+      
+      p(" ")
     )
   )
 )
